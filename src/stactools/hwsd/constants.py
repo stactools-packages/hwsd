@@ -64,9 +64,6 @@ PROVIDERS = [
     Provider(name="NCAR",
              roles=[ProviderRole.PRODUCER, ProviderRole.PROCESSOR],
              url="https://ncar.ucar.edu/"),
-    Provider(name="Microsoft",
-             roles=[ProviderRole.HOST, ProviderRole.PROCESSOR],
-             url="https://planetarycomputer.microsoft.com"),
 ]
 
 KEYWORDS = [
