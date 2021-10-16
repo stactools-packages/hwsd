@@ -1,0 +1,543 @@
+{
+  "type": "Feature",
+  "stac_version": "1.0.0",
+  "id": "hwsd",
+  "properties": {
+    "title": "Harmonized World Soil Database",
+    "description": "This data set describes select global soil parameters from the Harmonized World Soil Database (HWSD) v1.2, including additional calculated parameters such as area weighted soil organic carbon (kg C per m2), as high resolution NetCDF files. These data were regridded and upscaled from the Harmonized World Soil Database v1.2.",
+    "start_datetime": "2000-01-01T00:00:00Z",
+    "end_datetime": "2000-12-31T23:59:59Z",
+    "sci:citation": "Wieder, W.R., J. Boehnert, G.B. Bonan, and M. Langseth. 2014. Regridded Harmonized World Soil Database v1.2. Data set. Available on-line [http://daac.ornl.gov] from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, USA. http://dx.doi.org/10.3334/ORNLDAAC/1247 .",
+    "sci:doi": "10.3334/ORNLDAAC/1247",
+    "proj:epsg": 4326,
+    "datetime": "2000-01-01T00:00:00Z"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          180.0,
+          90.0
+        ],
+        [
+          180.0,
+          -90.0
+        ],
+        [
+          -180.0,
+          -90.0
+        ],
+        [
+          -180.0,
+          90.0
+        ],
+        [
+          180.0,
+          90.0
+        ]
+      ]
+    ]
+  },
+  "links": [
+    {
+      "rel": "via",
+      "href": "https://www.fao.org/soils-portal/data-hub/soil-maps-and-databases/harmonized-world-soil-database-v12",
+      "title": "Homepage"
+    },
+    {
+      "rel": "via",
+      "href": "http://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/SoilQualityData.html?sb=11",
+      "title": "Homepage, Alternate"
+    },
+    {
+      "rel": "via",
+      "href": "https://daac.ornl.gov/SOILS/guides/HWSD.html",
+      "title": "Homepage, Regridded"
+    },
+    {
+      "rel": "cite-as",
+      "href": "https://doi.org/10.3334/ORNLDAAC/1247"
+    }
+  ],
+  "assets": {
+    "AWC_CLASS": {
+      "href": "path/to/files/1900.csv.gz/AWC_CLASS.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "AWC_CLASS",
+      "description": "Available water storage capacity ",
+      "units": "Coded values 1 through 7 ",
+      "notes": "1 = 150 mm water per m of the soil unit, 2 = 125 mm, 3 = 100 mm, 4 = 75 mm, 5 = 50 mm, 6 = 15 mm, 7 = 0 mm.",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "ISSOIL": {
+      "href": "path/to/files/1900.csv.gz/ISSOIL.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "ISSOIL",
+      "description": "Soil or non-soil units ",
+      "units": "0 or 1 ",
+      "notes": "ISSOIL indicates whether the soil mapping unit is a soil (1) or non-soil (0)",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "MU_GLOBAL": {
+      "href": "path/to/files/1900.csv.gz/MU_GLOBAL.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "MU_GLOBAL",
+      "description": "HWSD global mapping unit identifier ",
+      "units": "numerical ID ",
+      "notes": "MU_GLOBAL provides a link from the grid cell to the other attributes.The HWSD v1.2 attribute lookup table is available from the HWSD project (FAO 2012)",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "REF_DEPTH": {
+      "href": "path/to/files/1900.csv.gz/REF_DEPTH.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "REF_DEPTH",
+      "description": "Reference soil depth ",
+      "units": "cm ",
+      "notes": "Reference soil depth of all soil units are set at 100 cm, except for Rendzinas and Rankers of FAO-74 and Leptosols of FAO-90, where the reference soil depth is set at 30 cm, and for Lithosols of FAO-74 and Lithic Leptosols of FAO-90, where it is set at 10 cm.",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "ROOTS": {
+      "href": "path/to/files/1900.csv.gz/ROOTS.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "ROOTS",
+      "description": "Depth of obstacles to roots ",
+      "units": "Coded values 0 through 6 ",
+      "notes": "0 = no information, 1 = no obstacles to roots between 0 and 80 cm depth, 2 = obstacles to roots between 60 and 80 cm depth, 3 = obstacles between 40 and 60 cm, 4 = 20 and 40 cm, 5 = 0 and 80 cm, 6 = 0 and 20 cm.",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "T_BULK_DEN": {
+      "href": "path/to/files/1900.csv.gz/T_BULK_DEN.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "T_BULK_DEN",
+      "description": "Topsoil bulk density ",
+      "units": "kg dm-3 ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "S_BULK_DEN": {
+      "href": "path/to/files/1900.csv.gz/S_BULK_DEN.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "S_BULK_DEN",
+      "description": "Subsoil bulk density ",
+      "units": "kg dm-3 ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "T_REF_BULK": {
+      "href": "path/to/files/1900.csv.gz/T_REF_BULK.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "T_REF_BULK",
+      "description": "topsoil bulk density ",
+      "units": "kg dm-3 ",
+      "notes": "Reference bulk density values are calculated from equations developed by Saxton et al. (1986) that relate to the texture of the soil only. These estimates, although generally reliable, overestimate the bulk density in soils that have a high porosity (Andosols) or that are high in organic matter content (Histosols). The calculation procedures for reference bulk density can be found in Saxton et al (1986)",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "S_REF_BULK": {
+      "href": "path/to/files/1900.csv.gz/S_REF_BULK.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "S_REF_BULK",
+      "description": "Subsoil reference bulk density ",
+      "units": "kg dm-3",
+      "notes": null,
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "T_CEC_CLAY": {
+      "href": "path/to/files/1900.csv.gz/T_CEC_CLAY.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "T_CEC_CLAY",
+      "description": "Cation exchange capacity of the clay fraction in the topsoil ",
+      "units": "cmol per kg ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "S_CEC_CLAY": {
+      "href": "path/to/files/1900.csv.gz/S_CEC_CLAY.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "S_CEC_CLAY",
+      "description": "Cation exchange capacity of the clay fraction in the subsoil ",
+      "units": "cmol per kg ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "T_CLAY": {
+      "href": "path/to/files/1900.csv.gz/T_CLAY.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "T_CLAY",
+      "description": "Topsoil clay fraction ",
+      "units": "% weight ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "S_CLAY": {
+      "href": "path/to/files/1900.csv.gz/S_CLAY.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "S_CLAY",
+      "description": "Subsoil clay fraction ",
+      "units": "% weight ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "T_GRAVEL": {
+      "href": "path/to/files/1900.csv.gz/T_GRAVEL.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "T_GRAVEL",
+      "description": "Topsoil gravel content ",
+      "units": "% volume ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "S_GRAVEL": {
+      "href": "path/to/files/1900.csv.gz/S_GRAVEL.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "S_GRAVEL",
+      "description": "Subsoil gravel content ",
+      "units": "% volume ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "T_SAND": {
+      "href": "path/to/files/1900.csv.gz/T_SAND.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "T_SAND",
+      "description": "Topsoil sand fraction ",
+      "units": "% weight ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "S_SAND": {
+      "href": "path/to/files/1900.csv.gz/S_SAND.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "S_SAND",
+      "description": "Subsoil sand fraction ",
+      "units": "% weight ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "T_SILT": {
+      "href": "path/to/files/1900.csv.gz/T_SILT.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "T_SILT",
+      "description": "Topsoil silt fraction ",
+      "units": "% weight ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "S_SILT": {
+      "href": "path/to/files/1900.csv.gz/S_SILT.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "S_SILT",
+      "description": "Subsoil silt fraction ",
+      "units": "% weight ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "T_PH_H20": {
+      "href": "path/to/files/1900.csv.gz/T_PH_H20.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "T_PH_H20",
+      "description": "Topsoil pH (in H2O) ",
+      "units": "-log(H+) ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "S_PH_H20": {
+      "href": "path/to/files/1900.csv.gz/S_PH_H20.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "S_PH_H20",
+      "description": "Subsoil pH (in water) ",
+      "units": "-log(H+) ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "T_C": {
+      "href": "path/to/files/1900.csv.gz/T_C.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "T_C",
+      "description": "Topsoil carbon content ",
+      "units": "kg C m-2 ",
+      "notes": "Topsoil and subsoil carbon content (T_C and S_C) are based on the carbon content of the dominant soil type in each regridded cell rather than a weighted average.",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "S_C": {
+      "href": "path/to/files/1900.csv.gz/S_C.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "S_C",
+      "description": "Dominant soil type subsoil carbon content ",
+      "units": "kg C m-2 ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "T_OC": {
+      "href": "path/to/files/1900.csv.gz/T_OC.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "T_OC",
+      "description": "Topsoil organic carbon ",
+      "units": "% weight ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "S_OC": {
+      "href": "path/to/files/1900.csv.gz/S_OC.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "S_OC",
+      "description": "Subsoil organic carbon ",
+      "units": "% weight ",
+      "notes": "",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "AWT_S_SOC": {
+      "href": "path/to/files/1900.csv.gz/AWT_S_SOC.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "AWT_S_SOC",
+      "description": "Area weighted subsoil carbon content ",
+      "units": "kg C m-2 ",
+      "notes": "AWT_S_SOC = (sum(SEQ(SHARE * S_OC)) * 7 * S_BULK_DENSITY)",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "AWT_T_SOC": {
+      "href": "path/to/files/1900.csv.gz/AWT_T_SOC.nc4",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "AWT_T_SOC",
+      "description": "Area weighted topsoil carbon content ",
+      "units": "kg C m-2 ",
+      "notes": "AWT_T_SOC = (sum(SEQ(SHARE * T_OC)) * 3 * T_BULK_DENSITY) ",
+      "raster:bands": [
+        {
+          "nodata": -1,
+          "sampling": "area"
+        }
+      ],
+      "roles": [
+        "data"
+      ]
+    },
+    "documentation": {
+      "href": "http://daac.ornl.gov/daacdata/global_soil/HWSD/comp/HWSD1.2_documentation.pdf",
+      "type": "application/pdf",
+      "title": "HWSD Documentation",
+      "roles": [
+        "metadata"
+      ]
+    }
+  },
+  "bbox": [
+    -180.0,
+    90.0,
+    180.0,
+    -90.0
+  ],
+  "stac_extensions": [
+    "https://stac-extensions.github.io/scientific/v1.0.0/schema.json",
+    "https://stac-extensions.github.io/projection/v1.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.0.0/schema.json"
+  ]
+}

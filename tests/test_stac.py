@@ -1,30 +1,28 @@
 import unittest
 
-from stactools.ephemeral import stac
+from stactools.hwsd import stac
+from stactools.hwsd.constants import DOI, EPSG, ID, LICENSE
 
 
 class StacTest(unittest.TestCase):
     def test_create_collection(self):
-        # Write tests for each for the creation of a STAC Collection
-        # Create the STAC Collection...
         collection = stac.create_collection()
         collection.set_self_href("")
 
-        # Check that it has some required attributes
-        self.assertEqual(collection.id, "my-collection-id")
-        # self.assertEqual(collection.other_attr...
+        self.assertEqual(collection.id, ID)
+        self.assertEqual(collection.license, LICENSE)
+        self.assertEqual(collection.extra_fields["sci:doi"], DOI)
+        self.assertEqual(len(collection.extra_fields["item_assets"]), 28)
 
-        # Validate
         collection.validate()
 
     def test_create_item(self):
-        # Write tests for each for the creation of STAC Items
-        # Create the STAC Item...
-        item = stac.create_item("/path/to/asset.tif")
+        item = stac.create_item("path/to/files/1900.csv.gz")
 
-        # Check that it has some required attributes
-        self.assertEqual(item.id, "my-item-id")
-        # self.assertEqual(item.other_attr...
+        self.assertEqual(item.id, ID)
+        self.assertEqual(item.properties["sci:doi"], DOI)
+        self.assertEqual(item.properties["proj:epsg"], EPSG)
+        self.assertEqual(len(item.assets), 28)
 
         # Validate
         item.validate()
