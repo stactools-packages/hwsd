@@ -1,10 +1,10 @@
 import logging
 import os
+from glob import glob
 
 import click
-from stactools.core.utils.convert import cogify
 
-from stactools.hwsd import stac
+from stactools.hwsd import cog, stac
 
 logger = logging.getLogger(__name__)
 
@@ -89,9 +89,16 @@ def create_hwsd_command(cli):
         """
 
         collection = stac.create_collection()
+        collection.normalize_hrefs(destination)
+        collection.save(dest_href=destination)
 
-        item = stac.create_item(source)
-        collection.add_item(item)
+        cog.create_cogs(source, destination)
+        for cog_file in glob(f"{destination}/*.tif"):
+            item = stac.create_item(cog_file)
+            collection.add_item(item)
+            item.set_self_href(cog_file.replace(".tif", ".json"))
+            item.make_asset_hrefs_relative()
+            item.save_object()
 
         collection.normalize_hrefs(destination)
         collection.save(dest_href=destination)
@@ -101,32 +108,27 @@ def create_hwsd_command(cli):
 
     @hwsd.command(
         "create-cog",
-        short_help="Transform Geotiff to Cloud-Optimized Geotiff.",
+        short_help="Transform NetCDF to Cloud-Optimized Geotiff.",
     )
     @click.option("-d",
                   "--destination",
                   required=True,
-                  help="The output directory for the COG")
-    @click.option("-s",
-                  "--source",
-                  required=True,
-                  help="Path to an input GeoTiff")
+                  help="The output directory for the COGs")
+    @click.option("-s", "--source", required=True, help="The input NetCDF fle")
     def create_cog_command(destination: str, source: str) -> None:
-        """Generate a COG from a GeoTiff. The COG will be saved in the desination
-        with `_cog.tif` appended to the name.
+        """Generate a COG from a NetCDF.
 
         Args:
             destination (str): Local directory to save output COGs
-            source (str): A GeoTIFF
+            source (str): The input JNetCDF file
         """
         if not os.path.isdir(destination):
             raise IOError(f'Destination folder "{destination}" not found')
 
-        output_path = os.path.join(destination,
-                                   os.path.basename(source)[:-4] + "_cog.tif")
+        output_path = os.path.join(
+            destination,
+            os.path.basename(source).replace(".nc4", "") + ".tif")
 
-        args = ["-co", "OVERVIEWS=IGNORE_EXISTING"]
-
-        cogify(source, output_path, args)
+        cog.create_cog(source, output_path)
 
     return hwsd

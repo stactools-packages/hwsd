@@ -4,6 +4,7 @@ from typing import Any, Dict
 
 from pyproj import CRS
 from pystac import Link, Provider, ProviderRole
+from pystac.extensions.raster import DataType
 
 ID = "hwsd"
 EPSG = 4326
@@ -176,4 +177,34 @@ ASSETS_METADATA: Dict[str, Any] = {
     }
 }
 
-NODATA = -1
+NO_DATA = -1
+
+DATA_TYPES = {
+    "AWC_CLASS": DataType.INT16,
+    "ISSOIL": DataType.INT16,
+    "MU_GLOBAL": DataType.INT32,
+    "REF_DEPTH": DataType.INT16,
+    "ROOTS": DataType.INT16,
+    "T_BULK_DEN": DataType.FLOAT64,
+    "S_BULK_DEN": DataType.FLOAT64,
+    "T_REF_BULK": DataType.FLOAT64,
+    "S_REF_BULK": DataType.FLOAT64,
+    "T_CEC_CLAY": DataType.FLOAT64,
+    "S_CEC_CLAY": DataType.FLOAT64,
+    "T_CLAY": DataType.FLOAT64,
+    "S_CLAY": DataType.FLOAT64,
+    "T_GRAVEL": DataType.FLOAT64,
+    "S_GRAVEL": DataType.FLOAT64,
+    "T_SAND": DataType.FLOAT64,
+    "S_SAND": DataType.FLOAT64,
+    "T_SILT": DataType.FLOAT64,
+    "S_SILT": DataType.FLOAT64,
+    "T_PH_H2O": DataType.FLOAT64,
+    "S_PH_H2O": DataType.FLOAT64,
+    "T_C": DataType.FLOAT64,
+    "S_C": DataType.FLOAT64,
+    "T_OC": DataType.FLOAT64,
+    "S_OC": DataType.FLOAT64,
+    "AWT_S_SOC": DataType.FLOAT64,
+    "AWT_T_SOC": DataType.FLOAT64,
+}

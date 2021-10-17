@@ -1,29 +1,58 @@
 import logging
 import os
-from typing import Any, List
+from typing import Any, List, Optional
 
-from pystac import (CatalogType, Collection, Extent, MediaType, SpatialExtent,
-                    TemporalExtent)
+from pystac import (
+    CatalogType,
+    Collection,
+    Extent,
+    MediaType,
+    SpatialExtent,
+    TemporalExtent,
+)
 from pystac.asset import Asset
 from pystac.extensions.item_assets import AssetDefinition, ItemAssetsExtension
-from pystac.extensions.projection import (ProjectionExtension,
-                                          SummariesProjectionExtension)
-from pystac.extensions.raster import RasterBand, RasterExtension
+from pystac.extensions.projection import (
+    ProjectionExtension,
+    SummariesProjectionExtension,
+)
+from pystac.extensions.raster import RasterBand, RasterExtension, Sampling
 from pystac.extensions.scientific import ScientificExtension
 from pystac.item import Item
 from pystac.link import Link
 from pystac.rel_type import RelType
 from pystac.utils import str_to_datetime
 from shapely.geometry.geo import box
+from stactools.core.io import ReadHrefModifier
 
-from stactools.hwsd.constants import (ASSETS_METADATA, CITATION, DESCRIPTION,
-                                      DOCUMENTATION, DOI, EPSG, HOMEPAGE_1,
-                                      HOMEPAGE_2, HOMEPAGE_REGRIDDED, ID,
-                                      KEYWORDS, LICENSE, LICENSE_LINK, NODATA,
-                                      PROVIDERS, SPATIAL_EXTENT,
-                                      TEMPORAL_EXTENT, THUMBNAIL, TITLE)
+from stactools.hwsd.constants import (
+    ASSETS_METADATA,
+    CITATION,
+    DATA_TYPES,
+    DESCRIPTION,
+    DOCUMENTATION,
+    DOI,
+    EPSG,
+    HOMEPAGE_1,
+    HOMEPAGE_2,
+    HOMEPAGE_REGRIDDED,
+    ID,
+    KEYWORDS,
+    LICENSE,
+    LICENSE_LINK,
+    NO_DATA,
+    PROVIDERS,
+    SPATIAL_EXTENT,
+    TEMPORAL_EXTENT,
+    THUMBNAIL,
+    TITLE,
+)
 
 logger = logging.getLogger(__name__)
+
+
+def asset_name_from_href(href):
+    return os.path.basename(href).replace(".nc4", "").replace(".tif", "")
 
 
 def create_collection() -> Collection:
@@ -105,7 +134,10 @@ def create_collection() -> Collection:
     return collection
 
 
-def create_item(assets_location: str) -> Item:
+def create_item(
+    cog_href: str,
+    cog_href_modifier: Optional[ReadHrefModifier] = None,
+) -> Item:
     """Create a STAC Item
     Create a STAC Item for one year of the HWSD. The asset_href should include
      the observation year as the first part of the filename.
@@ -158,24 +190,27 @@ def create_item(assets_location: str) -> Item:
               title="HWSD Documentation",
               href=DOCUMENTATION))
 
-    asset_names = list(ASSETS_METADATA["Description"].keys())
-    for asset_name in asset_names:
-        data_asset = Asset(
-            href=os.path.join(assets_location, f"{asset_name}.nc4"),
-            media_type=MediaType.COG,
-            roles=["data"],
-            title=asset_name,
-            description=ASSETS_METADATA["Description"][asset_name],
-            extra_fields={
-                "units": ASSETS_METADATA["Units"][asset_name],
-                "notes": ASSETS_METADATA["Notes"][asset_name],
-            })
-        item.add_asset(asset_name, data_asset)
+    asset_name = asset_name_from_href(cog_href)
+    data_asset = Asset(href=cog_href,
+                       media_type=MediaType.COG,
+                       roles=["data"],
+                       title=asset_name,
+                       description=ASSETS_METADATA["Description"][asset_name],
+                       extra_fields={
+                           "units": ASSETS_METADATA["Units"][asset_name],
+                           "notes": ASSETS_METADATA["Notes"][asset_name],
+                       })
+    item.add_asset("data", data_asset)
 
-        # Include raster information
-        sampling: Any = "area"
-        rast_band = RasterBand.create(nodata=NODATA, sampling=sampling)
-        rast_ext = RasterExtension.ext(data_asset, add_if_missing=True)
-        rast_ext.bands = [rast_band]
+    # Include raster information
+    rast_ext = RasterExtension.ext(data_asset, add_if_missing=True)
+    rast_ext.bands = [
+        RasterBand.create(
+            nodata=NO_DATA,
+            sampling=Sampling.AREA,
+            data_type=DATA_TYPES[asset_name],
+            # spatial_resolution=30,
+        )
+    ]
 
     return item

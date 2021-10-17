@@ -17,12 +17,12 @@ class StacTest(unittest.TestCase):
         collection.validate()
 
     def test_create_item(self):
-        item = stac.create_item("path/to/files/1900.csv.gz")
+        item = stac.create_item("path/to/files/AWC_CLASS.nc4")
 
         self.assertEqual(item.id, ID)
         self.assertEqual(item.properties["sci:doi"], DOI)
         self.assertEqual(item.properties["proj:epsg"], EPSG)
-        self.assertEqual(len(item.assets), 28)
+        self.assertEqual(len(item.assets), 2)
 
         # Validate
         item.validate()
