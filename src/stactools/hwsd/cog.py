@@ -4,7 +4,7 @@ from glob import glob
 from subprocess import CalledProcessError, check_output
 
 # import rasterio
-from stactools.hwsd.constants import DATA_TYPES, NO_DATA
+from stactools.hwsd.constants import ASSET_DATA_TYPES, NO_DATA
 from stactools.hwsd.stac import asset_name_from_href
 
 logger = logging.getLogger(__name__)
@@ -53,7 +53,7 @@ def create_cog(
         cmd = [
             "gdal_translate",
             "-ot",
-            DATA_TYPES[asset_name_from_href(output_path)].value,
+            ASSET_DATA_TYPES[asset_name_from_href(output_path)].value,
             # "-strict",
             # "-unscale",
             # "-scale",

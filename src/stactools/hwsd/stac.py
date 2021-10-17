@@ -26,9 +26,11 @@ from shapely.geometry.geo import box
 from stactools.core.io import ReadHrefModifier
 
 from stactools.hwsd.constants import (
-    ASSETS_METADATA,
+    ASSET_DATA_TYPES,
+    ASSET_DESCRIPTIONS,
+    ASSET_NOTES,
+    ASSET_UNITS,
     CITATION,
-    DATA_TYPES,
     DESCRIPTION,
     DOCUMENTATION,
     DOI,
@@ -114,7 +116,7 @@ def create_collection() -> Collection:
               href=THUMBNAIL))
 
     item_asset_ext = ItemAssetsExtension.ext(collection, add_if_missing=True)
-    asset_names = list(ASSETS_METADATA["Description"].keys())
+    asset_names = list(ASSET_DESCRIPTIONS.keys())
     item_assets = {
         a: AssetDefinition({
             "types": [MediaType.COG],
@@ -191,15 +193,21 @@ def create_item(
               href=DOCUMENTATION))
 
     asset_name = asset_name_from_href(cog_href)
-    data_asset = Asset(href=cog_href,
-                       media_type=MediaType.COG,
-                       roles=["data"],
-                       title=asset_name,
-                       description=ASSETS_METADATA["Description"][asset_name],
-                       extra_fields={
-                           "units": ASSETS_METADATA["Units"][asset_name],
-                           "notes": ASSETS_METADATA["Notes"][asset_name],
-                       })
+    extra_fields = {
+        "units": ASSET_UNITS[asset_name],
+    }
+    if asset_name in ASSET_NOTES:
+        extra_fields["notes"] = ASSET_NOTES[asset_name]
+    data_asset = Asset(
+        href=cog_href,
+        media_type=MediaType.COG,
+        roles=["data"],
+        title=asset_name,
+        description=ASSET_DESCRIPTIONS[asset_name],
+        extra_fields={
+            "units": ASSET_UNITS[asset_name],
+        },
+    )
     item.add_asset("data", data_asset)
 
     # Include raster information
@@ -208,7 +216,7 @@ def create_item(
         RasterBand.create(
             nodata=NO_DATA,
             sampling=Sampling.AREA,
-            data_type=DATA_TYPES[asset_name],
+            data_type=ASSET_DATA_TYPES[asset_name],
             # spatial_resolution=30,
         )
     ]
