@@ -103,35 +103,37 @@ def create_collection() -> Collection:
 
     collection.add_asset(
         "documentation",
-        Asset(media_type="application/pdf",
-              roles=["metadata"],
-              title="Documentation",
-              href=DOCUMENTATION))
+        Asset(
+            media_type="application/pdf",
+            roles=["metadata"],
+            title="Documentation",
+            href=DOCUMENTATION,
+        ))
 
     collection.add_asset(
         "thumbnail",
-        Asset(media_type=MediaType.PNG,
-              roles=["thumbnail"],
-              title="Thumbnail",
-              href=THUMBNAIL))
+        Asset(
+            media_type=MediaType.PNG,
+            roles=["thumbnail"],
+            title="Thumbnail",
+            href=THUMBNAIL,
+        ))
 
-    item_asset_ext = ItemAssetsExtension.ext(collection, add_if_missing=True)
-    asset_names = list(ASSET_DESCRIPTIONS.keys())
-    item_assets = {
-        a: AssetDefinition({
-            "types": [MediaType.COG],
+    item_assets_ext = ItemAssetsExtension.ext(collection, add_if_missing=True)
+    item_assets_ext.item_assets = {
+        "data":
+        AssetDefinition({
+            "types": MediaType.COG,
             "roles": ["data"],
-            "title": a,
-            "proj:epsg": EPSG
-        })
-        for a in asset_names
+            "proj:epsg": EPSG,
+        }),
+        "documentation":
+        AssetDefinition({
+            "types": "application/pdf",
+            "roles": ["metadata"],
+            "title": "Documentation",
+        }),
     }
-    item_assets["Documentation"] = AssetDefinition({
-        "types": ["application/pdf"],
-        "roles": ["metadata"],
-        "title": "Documentation",
-    })
-    item_asset_ext.item_assets = item_assets
 
     return collection
 
