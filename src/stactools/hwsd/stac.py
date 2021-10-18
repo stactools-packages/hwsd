@@ -1,6 +1,6 @@
 import logging
 import os
-from typing import Any, List, Optional
+from typing import Any, Dict, List, Optional
 
 from pystac import (
     CatalogType,
@@ -38,16 +38,19 @@ from stactools.hwsd.constants import (
     HOMEPAGE_1,
     HOMEPAGE_2,
     HOMEPAGE_REGRIDDED,
+    HWSD_CRS,
     ID,
     KEYWORDS,
     LICENSE,
     LICENSE_LINK,
     NO_DATA,
     PROVIDERS,
+    SHAPE,
     SPATIAL_EXTENT,
     TEMPORAL_EXTENT,
     THUMBNAIL,
     TITLE,
+    TRANSFORM,
 )
 
 logger = logging.getLogger(__name__)
@@ -55,6 +58,12 @@ logger = logging.getLogger(__name__)
 
 def asset_name_from_href(href):
     return os.path.basename(href).replace(".nc4", "").replace(".tif", "")
+
+
+def get_geometry() -> Dict[str, Any]:
+    polygon = box(*SPATIAL_EXTENT, ccw=True)
+    coordinates = [list(i) for i in list(polygon.exterior.coords)]
+    return {"type": "Polygon", "coordinates": [coordinates]}
 
 
 def create_collection() -> Collection:
@@ -126,6 +135,11 @@ def create_collection() -> Collection:
             "types": MediaType.COG,
             "roles": ["data"],
             "proj:epsg": EPSG,
+            "proj:wkt2": HWSD_CRS.to_wkt(),
+            "proj:bbox": SPATIAL_EXTENT,
+            "proj:geometry": get_geometry(),
+            "proj:shape": SHAPE,
+            "proj:transform": TRANSFORM,
         }),
         "documentation":
         AssetDefinition({
@@ -153,9 +167,7 @@ def create_item(
         Item: STAC Item object
     """
 
-    polygon = box(*SPATIAL_EXTENT, ccw=True)
-    coordinates = [list(i) for i in list(polygon.exterior.coords)]
-    geometry = {"type": "Polygon", "coordinates": [coordinates]}
+    geometry = get_geometry()
 
     properties = {
         "title": TITLE,
@@ -184,8 +196,13 @@ def create_item(
     sci_ext.citation = CITATION
     sci_ext.doi = DOI
 
-    proj_attrs = ProjectionExtension.ext(item, add_if_missing=True)
-    proj_attrs.epsg = EPSG
+    proj_ext = ProjectionExtension.ext(item, add_if_missing=True)
+    proj_ext.epsg = EPSG
+    proj_ext.wkt2 = HWSD_CRS.to_wkt()
+    proj_ext.bbox = SPATIAL_EXTENT
+    proj_ext.geometry = geometry
+    proj_ext.shape = SHAPE
+    proj_ext.transform = TRANSFORM
 
     item.add_asset(
         "documentation",
@@ -211,6 +228,16 @@ def create_item(
         },
     )
     item.add_asset("data", data_asset)
+
+    # Asset Projection Extension
+    data_asset_proj_ext = ProjectionExtension.ext(data_asset,
+                                                  add_if_missing=True)
+    data_asset_proj_ext.epsg = proj_ext.epsg
+    data_asset_proj_ext.wkt2 = proj_ext.wkt2
+    data_asset_proj_ext.bbox = proj_ext.bbox
+    data_asset_proj_ext.geometry = proj_ext.geometry
+    data_asset_proj_ext.shape = proj_ext.shape
+    data_asset_proj_ext.transform = proj_ext.transform
 
     # Include raster information
     rast_ext = RasterExtension.ext(data_asset, add_if_missing=True)
