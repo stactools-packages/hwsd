@@ -1,0 +1,449 @@
+{
+  "type": "Collection",
+  "id": "hwsd",
+  "stac_version": "1.0.0",
+  "description": "This data set describes select global soil parameters from the Harmonized World Soil Database (HWSD) v1.2, including additional calculated parameters such as area weighted soil organic carbon (kg C per m2), as high resolution NetCDF files. These data were regridded and upscaled from the Harmonized World Soil Database v1.2.",
+  "links": [
+    {
+      "rel": "root",
+      "href": "./collection.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "license",
+      "href": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+      "title": "EOSDIS Data Use Policy"
+    },
+    {
+      "rel": "via",
+      "href": "https://www.fao.org/soils-portal/data-hub/soil-maps-and-databases/harmonized-world-soil-database-v12",
+      "title": "Homepage"
+    },
+    {
+      "rel": "via",
+      "href": "http://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/SoilQualityData.html?sb=11",
+      "title": "Homepage, Alternate"
+    },
+    {
+      "rel": "via",
+      "href": "https://daac.ornl.gov/SOILS/guides/HWSD.html",
+      "title": "Homepage, Regridded"
+    },
+    {
+      "rel": "cite-as",
+      "href": "https://doi.org/10.3334/ORNLDAAC/1247"
+    },
+    {
+      "rel": "self",
+      "href": "/home/jvrt/gdspark/202105_stactools/.vscode/hwsd/collection.json",
+      "type": "application/json"
+    }
+  ],
+  "stac_extensions": [
+    "https://stac-extensions.github.io/scientific/v1.0.0/schema.json",
+    "https://stac-extensions.github.io/item-assets/v1.0.0/schema.json"
+  ],
+  "sci:doi": "10.3334/ORNLDAAC/1247",
+  "sci:citation": "Wieder, W.R., J. Boehnert, G.B. Bonan, and M. Langseth. 2014. Regridded Harmonized World Soil Database v1.2. Data set. Available on-line [http://daac.ornl.gov] from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, USA. http://dx.doi.org/10.3334/ORNLDAAC/1247 .",
+  "item_assets": {
+    "AWC_CLASS": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "AWC_CLASS",
+      "proj:epsg": 4326
+    },
+    "ISSOIL": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "ISSOIL",
+      "proj:epsg": 4326
+    },
+    "MU_GLOBAL": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "MU_GLOBAL",
+      "proj:epsg": 4326
+    },
+    "REF_DEPTH": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "REF_DEPTH",
+      "proj:epsg": 4326
+    },
+    "ROOTS": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "ROOTS",
+      "proj:epsg": 4326
+    },
+    "T_BULK_DEN": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "T_BULK_DEN",
+      "proj:epsg": 4326
+    },
+    "S_BULK_DEN": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "S_BULK_DEN",
+      "proj:epsg": 4326
+    },
+    "T_REF_BULK": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "T_REF_BULK",
+      "proj:epsg": 4326
+    },
+    "S_REF_BULK": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "S_REF_BULK",
+      "proj:epsg": 4326
+    },
+    "T_CEC_CLAY": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "T_CEC_CLAY",
+      "proj:epsg": 4326
+    },
+    "S_CEC_CLAY": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "S_CEC_CLAY",
+      "proj:epsg": 4326
+    },
+    "T_CLAY": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "T_CLAY",
+      "proj:epsg": 4326
+    },
+    "S_CLAY": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "S_CLAY",
+      "proj:epsg": 4326
+    },
+    "T_GRAVEL": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "T_GRAVEL",
+      "proj:epsg": 4326
+    },
+    "S_GRAVEL": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "S_GRAVEL",
+      "proj:epsg": 4326
+    },
+    "T_SAND": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "T_SAND",
+      "proj:epsg": 4326
+    },
+    "S_SAND": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "S_SAND",
+      "proj:epsg": 4326
+    },
+    "T_SILT": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "T_SILT",
+      "proj:epsg": 4326
+    },
+    "S_SILT": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "S_SILT",
+      "proj:epsg": 4326
+    },
+    "T_PH_H20": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "T_PH_H20",
+      "proj:epsg": 4326
+    },
+    "S_PH_H20": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "S_PH_H20",
+      "proj:epsg": 4326
+    },
+    "T_C": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "T_C",
+      "proj:epsg": 4326
+    },
+    "S_C": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "S_C",
+      "proj:epsg": 4326
+    },
+    "T_OC": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "T_OC",
+      "proj:epsg": 4326
+    },
+    "S_OC": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "S_OC",
+      "proj:epsg": 4326
+    },
+    "AWT_S_SOC": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "AWT_S_SOC",
+      "proj:epsg": 4326
+    },
+    "AWT_T_SOC": {
+      "types": [
+        "image/tiff; application=geotiff; profile=cloud-optimized"
+      ],
+      "roles": [
+        "data"
+      ],
+      "title": "AWT_T_SOC",
+      "proj:epsg": 4326
+    },
+    "Documentation": {
+      "types": [
+        "application/pdf"
+      ],
+      "roles": [
+        "metadata"
+      ],
+      "title": "Documentation"
+    }
+  },
+  "title": "Harmonized World Soil Database",
+  "extent": {
+    "spatial": {
+      "bbox": [
+        [
+          -180.0,
+          90.0,
+          180.0,
+          -90.0
+        ]
+      ]
+    },
+    "temporal": {
+      "interval": [
+        [
+          "2000-01-01T00:00:00Z",
+          "2000-12-31T23:59:59Z"
+        ]
+      ]
+    }
+  },
+  "license": "various",
+  "keywords": [
+    "HWSD",
+    "Soil",
+    "Soils",
+    "Harmonized World Soil Database",
+    "regridded"
+  ],
+  "providers": [
+    {
+      "name": "FAO",
+      "roles": [
+        "host",
+        "licensor",
+        "processor",
+        "producer"
+      ],
+      "url": "https://www.fao.org/"
+    },
+    {
+      "name": "IIASA",
+      "roles": [
+        "licensor",
+        "producer"
+      ],
+      "url": "https://iiasa.ac.at/"
+    },
+    {
+      "name": "ISRIC",
+      "roles": [
+        "licensor",
+        "producer"
+      ],
+      "url": "https://www.isric.org/"
+    },
+    {
+      "name": "ISS-CAS",
+      "roles": [
+        "licensor",
+        "producer"
+      ],
+      "url": "http://english.issas.cas.cn/"
+    },
+    {
+      "name": "JRC",
+      "roles": [
+        "licensor",
+        "producer"
+      ],
+      "url": "https://esdac.jrc.ec.europa.eu/"
+    },
+    {
+      "name": "ORNL",
+      "roles": [
+        "host",
+        "processor"
+      ],
+      "url": "https://www.ornl.gov/"
+    },
+    {
+      "name": "NCAR",
+      "roles": [
+        "producer",
+        "processor"
+      ],
+      "url": "https://ncar.ucar.edu/"
+    },
+    {
+      "name": "Microsoft",
+      "roles": [
+        "host",
+        "processor"
+      ],
+      "url": "https://planetarycomputer.microsoft.com"
+    }
+  ],
+  "summaries": {
+    "proj:epsg": [
+      4326
+    ]
+  },
+  "assets": {
+    "documentation": {
+      "href": "http://daac.ornl.gov/daacdata/global_soil/HWSD/comp/HWSD1.2_documentation.pdf",
+      "type": "application/pdf",
+      "title": "Documentation",
+      "roles": [
+        "metadata"
+      ]
+    },
+    "thumbnail": {
+      "href": "https://daac.ornl.gov/SOILS/guides/HWSD_Fig1.png",
+      "type": "image/png",
+      "title": "Thumbnail",
+      "roles": [
+        "thumbnail"
+      ]
+    }
+  }
+}
