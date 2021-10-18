@@ -41,12 +41,12 @@ from stactools.hwsd.constants import (
     ASSET_UNITS,
     CITATION,
     DESCRIPTION,
-    DOCUMENTATION,
+    DOCUMENTATION_URL,
     DOI,
     EPSG,
-    HOMEPAGE_1,
-    HOMEPAGE_2,
-    HOMEPAGE_REGRIDDED,
+    HOMEPAGE_1_URL,
+    HOMEPAGE_2_URL,
+    HOMEPAGE_REGRIDDED_URL,
     HWSD_CRS,
     ID,
     KEYWORDS,
@@ -57,7 +57,7 @@ from stactools.hwsd.constants import (
     SHAPE,
     SPATIAL_EXTENT,
     TEMPORAL_EXTENT,
-    THUMBNAIL,
+    THUMBNAIL_URL,
     TITLE,
     TRANSFORM,
 )
@@ -104,12 +104,13 @@ def create_collection() -> Collection:
     )
 
     collection.add_link(LICENSE_LINK)
-    collection.add_link(Link(RelType.VIA, target=HOMEPAGE_1, title="Homepage"))
     collection.add_link(
-        Link(RelType.VIA, target=HOMEPAGE_2, title="Homepage, Alternate"))
+        Link(RelType.VIA, target=HOMEPAGE_1_URL, title="Homepage"))
+    collection.add_link(
+        Link(RelType.VIA, target=HOMEPAGE_2_URL, title="Homepage, Alternate"))
     collection.add_link(
         Link(RelType.VIA,
-             target=HOMEPAGE_REGRIDDED,
+             target=HOMEPAGE_REGRIDDED_URL,
              title="Homepage, Regridded"))
 
     proj_ext = SummariesProjectionExtension(collection)
@@ -123,9 +124,9 @@ def create_collection() -> Collection:
         "documentation",
         Asset(
             media_type="application/pdf",
-            roles=["metadata"],
+            roles=["documentation", "metadata"],
             title="Documentation",
-            href=DOCUMENTATION,
+            href=DOCUMENTATION_URL,
         ))
 
     collection.add_asset(
@@ -134,7 +135,7 @@ def create_collection() -> Collection:
             media_type=MediaType.PNG,
             roles=["thumbnail"],
             title="Thumbnail",
-            href=THUMBNAIL,
+            href=THUMBNAIL_URL,
         ))
 
     item_assets_ext = ItemAssetsExtension.ext(collection, add_if_missing=True)
@@ -198,12 +199,12 @@ def create_item(
         properties=properties,
     )
 
-    item.add_link(Link(RelType.VIA, target=HOMEPAGE_1, title="Homepage"))
+    item.add_link(Link(RelType.VIA, target=HOMEPAGE_1_URL, title="Homepage"))
     item.add_link(
-        Link(RelType.VIA, target=HOMEPAGE_2, title="Homepage, Alternate"))
+        Link(RelType.VIA, target=HOMEPAGE_2_URL, title="Homepage, Alternate"))
     item.add_link(
         Link(RelType.VIA,
-             target=HOMEPAGE_REGRIDDED,
+             target=HOMEPAGE_REGRIDDED_URL,
              title="Homepage, Regridded"))
 
     sci_ext = ScientificExtension.ext(item, add_if_missing=True)
@@ -223,7 +224,7 @@ def create_item(
         Asset(media_type="application/pdf",
               roles=["metadata"],
               title="HWSD Documentation",
-              href=DOCUMENTATION))
+              href=DOCUMENTATION_URL))
 
     asset_name = asset_name_from_href(cog_href)
     extra_fields = {

@@ -17,10 +17,10 @@ SHAPE = (7200, 3600)
 TRANSFORM = (0.049999999999999996, 0.0, -180.0, 0.0, -0.049999999999999996,
              90.0, 0.0, 0.0, 1.0)
 
-HOMEPAGE_REGRIDDED = "https://daac.ornl.gov/SOILS/guides/HWSD.html"
-HOMEPAGE_2 = "http://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/SoilQualityData.html?sb=11"
-HOMEPAGE_1 = "https://www.fao.org/soils-portal/data-hub/soil-maps-and-databases/harmonized-world-soil-database-v12"
-DOCUMENTATION = "http://daac.ornl.gov/daacdata/global_soil/HWSD/comp/HWSD1.2_documentation.pdf"
+HOMEPAGE_REGRIDDED_URL = "https://daac.ornl.gov/SOILS/guides/HWSD.html"
+HOMEPAGE_2_URL = "http://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/SoilQualityData.html?sb=11"
+HOMEPAGE_1_URL = "https://www.fao.org/soils-portal/data-hub/soil-maps-and-databases/harmonized-world-soil-database-v12"
+DOCUMENTATION_URL = "http://daac.ornl.gov/daacdata/global_soil/HWSD/comp/HWSD1.2_documentation.pdf"
 
 LICENSE = "proprietary"
 LICENSE_LINK = Link(
@@ -81,7 +81,7 @@ KEYWORDS = [
 CITATION = "Wieder, W.R., J. Boehnert, G.B. Bonan, and M. Langseth. 2014. Regridded Harmonized World Soil Database v1.2. Data set. Available on-line [http://daac.ornl.gov] from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, USA. http://dx.doi.org/10.3334/ORNLDAAC/1247 ."
 DOI = "10.3334/ORNLDAAC/1247"
 
-THUMBNAIL = "https://daac.ornl.gov/SOILS/guides/HWSD_Fig1.png"
+THUMBNAIL_URL = "https://daac.ornl.gov/SOILS/guides/HWSD_Fig1.png"
 
 NO_DATA = -1
 
