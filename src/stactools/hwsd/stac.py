@@ -165,6 +165,7 @@ def create_collection() -> Collection:
 def create_item(
     cog_href: str,
     cog_href_modifier: Optional[ReadHrefModifier] = None,
+    documentation_href: str = DOCUMENTATION_URL,
 ) -> Item:
     """Create a STAC Item
     Create a STAC Item for one year of the HWSD. The asset_href should include
@@ -223,8 +224,8 @@ def create_item(
         "documentation",
         Asset(media_type="application/pdf",
               roles=["documentation", "metadata"],
-              title="HWSD Documentation",
-              href=DOCUMENTATION_URL))
+              title="Documentation",
+              href=documentation_href))
 
     extra_fields = {
         "units": ASSET_UNITS[asset_name],
