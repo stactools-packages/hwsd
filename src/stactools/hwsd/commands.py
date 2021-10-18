@@ -101,9 +101,7 @@ def create_hwsd_command(cli):
             collection.add_item(item)
             item.set_self_href(cog_file.replace(".tif", ".json"))
             item.make_asset_hrefs_relative()
-            item.save_object()
 
-        collection.normalize_hrefs(destination)
         collection.save(dest_href=destination)
         collection.validate()
 
