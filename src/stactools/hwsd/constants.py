@@ -78,6 +78,7 @@ KEYWORDS = [
     "Soils",
     "Harmonized World Soil Database",
     "regridded",
+    "Global",
 ]
 
 CITATION = "Wieder, W.R., J. Boehnert, G.B. Bonan, and M. Langseth. 2014. Regridded Harmonized World Soil Database v1.2. Data set. Available on-line [http://daac.ornl.gov] from Oak Ridge National Laboratory Distributed Active Archive Center, Oak Ridge, Tennessee, USA. http://dx.doi.org/10.3334/ORNLDAAC/1247 ."
