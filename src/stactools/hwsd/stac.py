@@ -255,18 +255,19 @@ def create_item(
     data_asset_proj_ext.transform = proj_ext.transform
 
     # Label Extension
-    item_label = LabelExtension.ext(item, add_if_missing=True)
-    item_label.label_type = LabelType.RASTER
-    item_label.label_tasks = [LabelTask.CLASSIFICATION]
-    item_label.label_properties = None
-    item_label.label_description = ASSET_DESCRIPTIONS[asset_name]
-    item_label.label_classes = [
-        # TODO: The STAC Label extension JSON Schema is incorrect.
-        # https://github.com/stac-extensions/label/pull/8
-        # https://github.com/stac-utils/pystac/issues/611
-        # When it is fixed, this should be None, not the empty string.
-        LabelClasses.create(list(ASSET_LABELS[asset_name].values()), "")
-    ]
+    if asset_name in ASSET_LABELS:
+        item_label = LabelExtension.ext(item, add_if_missing=True)
+        item_label.label_type = LabelType.RASTER
+        item_label.label_tasks = [LabelTask.CLASSIFICATION]
+        item_label.label_properties = None
+        item_label.label_description = ASSET_DESCRIPTIONS[asset_name]
+        item_label.label_classes = [
+            # TODO: The STAC Label extension JSON Schema is incorrect.
+            # https://github.com/stac-extensions/label/pull/8
+            # https://github.com/stac-utils/pystac/issues/611
+            # When it is fixed, this should be None, not the empty string.
+            LabelClasses.create(list(ASSET_LABELS[asset_name].values()), "")
+        ]
 
     # File Extension
     data_asset_file_ext = FileExtension.ext(data_asset, add_if_missing=True)
