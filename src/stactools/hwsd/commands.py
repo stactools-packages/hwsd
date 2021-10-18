@@ -67,13 +67,16 @@ def create_hwsd_command(cli):
 
         return None
 
-    @hwsd.command("populate-collection",
-                  short_help="Populate the HWSD STAC Collection with all items"
-                  )
-    @click.option("-s",
-                  "--source",
-                  required=True,
-                  help="The source directory for the Item data assets.")
+    @hwsd.command(
+        "populate-collection",
+        short_help="Populate the HWSD STAC Collection with all items",
+    )
+    @click.option(
+        "-s",
+        "--source",
+        required=True,
+        help="The source directory for the Item data assets.",
+    )
     @click.option(
         "-d",
         "--destination",
@@ -110,17 +113,24 @@ def create_hwsd_command(cli):
         "create-cog",
         short_help="Transform NetCDF to Cloud-Optimized Geotiff.",
     )
-    @click.option("-d",
-                  "--destination",
-                  required=True,
-                  help="The output directory for the COGs")
-    @click.option("-s", "--source", required=True, help="The input NetCDF fle")
+    @click.option(
+        "-d",
+        "--destination",
+        required=True,
+        help="The output directory for the COGs",
+    )
+    @click.option(
+        "-s",
+        "--source",
+        required=True,
+        help="The input NetCDF fle",
+    )
     def create_cog_command(destination: str, source: str) -> None:
         """Generate a COG from a NetCDF.
 
         Args:
             destination (str): Local directory to save output COGs
-            source (str): The input JNetCDF file
+            source (str): The input NetCDF file
         """
         if not os.path.isdir(destination):
             raise IOError(f'Destination folder "{destination}" not found')
