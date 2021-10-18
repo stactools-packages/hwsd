@@ -195,3 +195,28 @@ ASSET_NOTES = {
     "AWT_S_SOC": "AWT_S_SOC = (sum(SEQ(SHARE * S_OC)) * 7 * S_BULK_DENSITY)",
     "AWT_T_SOC": "AWT_T_SOC = (sum(SEQ(SHARE * T_OC)) * 3 * T_BULK_DENSITY)",
 }
+
+ASSET_LABELS = {
+    "AWC_CLASS": {
+        1: "150 mm per m of the soil unit",
+        2: "125 mm per m",
+        3: "100 mm per m",
+        4: "75 mm per m",
+        5: "50 mm per m",
+        6: "15 mm per m",
+        7: "0 mm per m",
+    },
+    "ISSOIL": {
+        0: "not soil",
+        1: "soil",
+    },
+    "ROOTS": {
+        0: "no information",
+        1: "no obstacles to roots between 0 and 80 cm depth",
+        2: "obstacles to roots between 60 and 80 cm depth",
+        3: "obstacle to roots between 40 and 60 cm depth",
+        4: "obstacle to roots between 20 and 40 cm depth",
+        5: "obstacle to roots between 0 and 80 cm depth",
+        6: "obstacle to roots between 0 and 20 cm depth",
+    },
+}

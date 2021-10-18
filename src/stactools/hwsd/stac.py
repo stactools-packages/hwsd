@@ -2,6 +2,7 @@ import logging
 import os
 from typing import Any, Dict, List, Optional
 
+import fsspec
 from pystac import (
     CatalogType,
     Collection,
@@ -11,7 +12,14 @@ from pystac import (
     TemporalExtent,
 )
 from pystac.asset import Asset
+from pystac.extensions.file import FileExtension
 from pystac.extensions.item_assets import AssetDefinition, ItemAssetsExtension
+from pystac.extensions.label import (
+    LabelClasses,
+    LabelExtension,
+    LabelTask,
+    LabelType,
+)
 from pystac.extensions.projection import (
     ProjectionExtension,
     SummariesProjectionExtension,
@@ -28,6 +36,7 @@ from stactools.core.io import ReadHrefModifier
 from stactools.hwsd.constants import (
     ASSET_DATA_TYPES,
     ASSET_DESCRIPTIONS,
+    ASSET_LABELS,
     ASSET_NOTES,
     ASSET_UNITS,
     CITATION,
@@ -167,6 +176,11 @@ def create_item(
         Item: STAC Item object
     """
 
+    if cog_href_modifier is not None:
+        cog_access_href = cog_href_modifier(cog_href)
+    else:
+        cog_access_href = cog_href
+
     geometry = get_geometry()
 
     properties = {
@@ -217,10 +231,13 @@ def create_item(
     }
     if asset_name in ASSET_NOTES:
         extra_fields["notes"] = ASSET_NOTES[asset_name]
+    roles = ["data"]
+    if asset_name in ASSET_LABELS:
+        roles.extend(["labels", "labels-raster"])
     data_asset = Asset(
         href=cog_href,
         media_type=MediaType.COG,
-        roles=["data"],
+        roles=roles,
         title=asset_name,
         description=ASSET_DESCRIPTIONS[asset_name],
         extra_fields={
@@ -239,7 +256,34 @@ def create_item(
     data_asset_proj_ext.shape = proj_ext.shape
     data_asset_proj_ext.transform = proj_ext.transform
 
-    # Include raster information
+    # Label Extension
+    item_label = LabelExtension.ext(item, add_if_missing=True)
+    item_label.label_type = LabelType.RASTER
+    item_label.label_tasks = [LabelTask.CLASSIFICATION]
+    item_label.label_properties = None
+    item_label.label_description = ASSET_DESCRIPTIONS[asset_name]
+    item_label.label_classes = [
+        # TODO: The STAC Label extension JSON Schema is incorrect.
+        # https://github.com/stac-extensions/label/pull/8
+        # https://github.com/stac-utils/pystac/issues/611
+        # When it is fixed, this should be None, not the empty string.
+        LabelClasses.create(list(ASSET_LABELS[asset_name].values()), "")
+    ]
+
+    # File Extension
+    data_asset_file_ext = FileExtension.ext(data_asset, add_if_missing=True)
+    if asset_name in ASSET_LABELS:
+        # The following odd type annotation is needed
+        data_asset_file_ext.values = [{
+            "values": [value],
+            "summary": summary,
+        } for value, summary in ASSET_LABELS[asset_name].items()]
+    with fsspec.open(cog_access_href) as file:
+        size = file.size
+        if size is not None:
+            data_asset_file_ext.size = size
+
+    # Raster Extension
     rast_ext = RasterExtension.ext(data_asset, add_if_missing=True)
     rast_ext.bands = [
         RasterBand.create(
