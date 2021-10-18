@@ -13,9 +13,11 @@ SPATIAL_EXTENT = [-180., 90., 180., -90.]
 TEMPORAL_EXTENT = ["2000-01-01T00:00:00Z", "2000-12-31T23:59:59Z"]
 TITLE = "Harmonized World Soil Database"
 DESCRIPTION = "This data set describes select global soil parameters from the Harmonized World Soil Database (HWSD) v1.2, including additional calculated parameters such as area weighted soil organic carbon (kg C per m2), as high resolution NetCDF files. These data were regridded and upscaled from the Harmonized World Soil Database v1.2."
-SHAPE = (7200, 3600)
-TRANSFORM = (0.049999999999999996, 0.0, -180.0, 0.0, -0.049999999999999996,
-             90.0, 0.0, 0.0, 1.0)
+SHAPE = [7200, 3600]
+TRANSFORM = [
+    0.049999999999999996, 0.0, -180.0, 0.0, -0.049999999999999996, 90.0, 0.0,
+    0.0, 1.0
+]
 
 HOMEPAGE_REGRIDDED_URL = "https://daac.ornl.gov/SOILS/guides/HWSD.html"
 HOMEPAGE_2_URL = "http://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/SoilQualityData.html?sb=11"

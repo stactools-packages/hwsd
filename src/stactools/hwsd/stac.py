@@ -65,7 +65,7 @@ from stactools.hwsd.constants import (
 logger = logging.getLogger(__name__)
 
 
-def asset_name_from_href(href):
+def asset_name_from_href(href: str) -> str:
     return os.path.basename(href).replace(".nc4", "").replace(".tif", "")
 
 
@@ -273,10 +273,11 @@ def create_item(
     data_asset_file_ext = FileExtension.ext(data_asset, add_if_missing=True)
     if asset_name in ASSET_LABELS:
         # The following odd type annotation is needed
-        data_asset_file_ext.values = [{
+        mapping: List[Any] = [{
             "values": [value],
             "summary": summary,
         } for value, summary in ASSET_LABELS[asset_name].items()]
+        data_asset_file_ext.values = mapping
     with fsspec.open(cog_access_href) as file:
         size = file.size
         if size is not None:

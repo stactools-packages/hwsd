@@ -1,5 +1,4 @@
 import os.path
-# from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import pystac
@@ -7,6 +6,7 @@ from stactools.testing import CliTestCase
 
 from stactools.hwsd.commands import create_hwsd_command
 from stactools.hwsd.constants import DOI, EPSG, ID, LICENSE
+from tests import test_data
 
 
 class CommandsTest(CliTestCase):
@@ -30,18 +30,20 @@ class CommandsTest(CliTestCase):
             self.assertEqual(collection.id, ID)
             self.assertEqual(collection.license, LICENSE)
             self.assertEqual(collection.extra_fields["sci:doi"], DOI)
-            self.assertEqual(len(collection.extra_fields["item_assets"]), 28)
+            self.assertEqual(len(collection.extra_fields["item_assets"]), 2)
 
             collection.validate()
 
     def test_create_item(self):
+        test_path = test_data.get_path("data-files")
         with TemporaryDirectory() as tmp_dir:
+
             destination = os.path.join(tmp_dir, "item.json")
             result = self.run_command([
                 "hwsd",
                 "create-item",
                 "-s",
-                "AWC_CLASS.tif",
+                os.path.join(test_path, 'AWC_CLASS.tif'),
                 "-d",
                 destination,
             ])
@@ -53,7 +55,7 @@ class CommandsTest(CliTestCase):
             self.assertEqual(len(jsons), 1)
 
             item = pystac.read_file(destination)
-            self.assertEqual(item.id, ID)
+            self.assertEqual(item.id, "AWC_CLASS")
             self.assertEqual(item.properties["sci:doi"], DOI)
             self.assertEqual(item.properties["proj:epsg"], EPSG)
             self.assertEqual(len(item.assets), 2)

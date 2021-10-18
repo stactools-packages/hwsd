@@ -9,13 +9,13 @@ from stactools.hwsd import cog, stac
 logger = logging.getLogger(__name__)
 
 
-def create_hwsd_command(cli):
+def create_hwsd_command(cli: click.Group) -> click.Command:
     """Creates the stactools-hwsd command line utility."""
     @cli.group(
         "hwsd",
         short_help=("Commands for working with stactools-hwsd"),
     )
-    def hwsd():
+    def hwsd() -> None:
         pass
 
     @hwsd.command(
@@ -28,7 +28,7 @@ def create_hwsd_command(cli):
         required=True,
         help="The output location for the STAC Collection.",
     )
-    def create_collection_command(destination: str):
+    def create_collection_command(destination: str) -> None:
         """Creates a STAC Collection
 
         Args:
@@ -38,8 +38,6 @@ def create_hwsd_command(cli):
         collection.normalize_hrefs(destination)
         collection.save(dest_href=destination)
         collection.validate()
-
-        return None
 
     @hwsd.command("create-item", short_help="Create a STAC item")
     @click.option(
@@ -54,7 +52,7 @@ def create_hwsd_command(cli):
         required=True,
         help="An HREF for the STAC Collection.",
     )
-    def create_item_command(source: str, destination: str):
+    def create_item_command(source: str, destination: str) -> None:
         """Creates a STAC Item
 
         Args:
@@ -64,8 +62,6 @@ def create_hwsd_command(cli):
         item = stac.create_item(source)
         item.save_object(dest_href=destination)
         item.validate()
-
-        return None
 
     @hwsd.command(
         "populate-collection",
@@ -83,7 +79,7 @@ def create_hwsd_command(cli):
         required=True,
         help="The output directory for the populated STAC Collection.",
     )
-    def populate_collection_command(source: str, destination: str):
+    def populate_collection_command(source: str, destination: str) -> None:
         """Populate the HWSD STAC Collection with all items
 
         Args:
@@ -104,8 +100,6 @@ def create_hwsd_command(cli):
 
         collection.save(dest_href=destination)
         collection.validate()
-
-        return None
 
     @hwsd.command(
         "create-cog",
