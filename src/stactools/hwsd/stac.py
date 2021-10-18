@@ -240,9 +240,7 @@ def create_item(
         roles=roles,
         title=asset_name,
         description=ASSET_DESCRIPTIONS[asset_name],
-        extra_fields={
-            "units": ASSET_UNITS[asset_name],
-        },
+        extra_fields=extra_fields,
     )
     item.add_asset("data", data_asset)
 
