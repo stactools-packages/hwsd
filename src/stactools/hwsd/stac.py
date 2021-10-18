@@ -182,17 +182,17 @@ def create_item(
     else:
         cog_access_href = cog_href
 
+    asset_name = asset_name_from_href(cog_href)
     geometry = get_geometry()
-
     properties = {
-        "title": TITLE,
-        "description": DESCRIPTION,
+        "title": asset_name,
+        "description": ASSET_DESCRIPTIONS[asset_name],
         "start_datetime": TEMPORAL_EXTENT[0],
         "end_datetime": TEMPORAL_EXTENT[1],
     }
 
     item = Item(
-        id=ID,
+        id=asset_name,
         geometry=geometry,
         bbox=SPATIAL_EXTENT,
         datetime=str_to_datetime(TEMPORAL_EXTENT[0]),
@@ -226,7 +226,6 @@ def create_item(
               title="HWSD Documentation",
               href=DOCUMENTATION_URL))
 
-    asset_name = asset_name_from_href(cog_href)
     extra_fields = {
         "units": ASSET_UNITS[asset_name],
     }
