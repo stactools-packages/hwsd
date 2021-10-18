@@ -154,7 +154,7 @@ def create_collection() -> Collection:
         "documentation":
         AssetDefinition({
             "types": "application/pdf",
-            "roles": ["metadata"],
+            "roles": ["documentation", "metadata"],
             "title": "Documentation",
         }),
     }
@@ -222,7 +222,7 @@ def create_item(
     item.add_asset(
         "documentation",
         Asset(media_type="application/pdf",
-              roles=["metadata"],
+              roles=["documentation", "metadata"],
               title="HWSD Documentation",
               href=DOCUMENTATION_URL))
 
